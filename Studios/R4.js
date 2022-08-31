@@ -32,7 +32,11 @@
 // } }
 // fib(5);
 
-function D(m, x) { display(m);
-return x; }
-    D(1, x => D(2, D(3, 3) * D(4, x))) (D(5, 5));
-    // same as (x => 3 * x)(5);
+// function D(m, x) { display(m);
+// return x; }
+//     D(1, x => D(2, D(3, 3) * D(4, x))) (D(5, 5));
+//     // same as (x => 3 * x)(5);
+
+const x = 5;
+const y = 2;
+((x,y) => (y=>y(x)+1)(x=>x*3+y))(x+4,y+1);
