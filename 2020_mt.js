@@ -36,6 +36,7 @@
 
 
 
+
 // Question 12
 // function horizontal_flip(M){
 //     function flipper(product,lst){
@@ -50,6 +51,16 @@
 // }
 // const A = list( list(1,2,3,4), list(5,6,7,8), list(9,10,11,12) );
 // display_list(horizontal_flip(A));
+
+
+
+
+//Question 13
+// function row_sums(M){
+//     return map(x=>accumulate((a,b) => a + b,0,x),M);
+// }
+// const A = list( list(1,2,3,4), list(5,6,7,8), list(9,10,11,12) );
+// row_sums(A);
 
 
 
