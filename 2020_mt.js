@@ -18,21 +18,21 @@
 
 
 // Question 11
-// function get_elem(M,r,c){
-//     function get_it(lst,c,counter){
-//         if (counter === c){
-//             return head(lst);
-//         }
-//         else{
-//             return get_it(tail(lst),c,counter);
-//         }
-//     }
-//     return get_it(get_it(M,r,0),c,0);
-// }
+function get_elem(M,r,c){
+    function get_it(lst,c,counter){
+        if (counter === c){
+            return head(lst);
+        }
+        else{
+            return get_it(tail(lst),c,counter);
+        }
+    }
+    return get_it(get_it(M,r,0),c,0);
+}
 
-// const A = list( list(1, 2, 3), list(4, 5, 6), list(7, 8, 9) );
-// get_elem(A, 0, 2); // returns 3
-// get_elem(A, 2, 0); // returns 7
+const A = list( list(1, 2, 3), list(4, 5, 6), list(7, 8, 9) );
+get_elem(A, 0, 2); // returns 3
+get_elem(A, 2, 0); // returns 7
 
 
 
