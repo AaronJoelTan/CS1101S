@@ -65,28 +65,54 @@
 function ms(m, s) { display(m);
 return s; }
 
-function string_ref(s,idx){
-    function inner(s,idx1){
-        if (idx1 === 0){
-            return head(s);
+// function stream_ref(s,idx){
+//     function inner(s,idx1){
+//         if (idx1 === 0){
+//             return head(s);
+//         }
+//         else {
+//             return inner(stream_tail(s),idx1-1);
+//         }
+//     }
+//     return inner(s,idx);
+// }
+
+// const a = pair(1, () => ms('A',a));
+
+// display(string_ref(a,3));
+
+
+/* 
+basically memoize for stream is having an outer function encapsulating the main
+function, so that if the main function has been run before, the outer function 
+will have data that it it did, and just return stored result.
+
+But this would mean that the environment is sortof always constant
+
+
+
+*/
+
+function memoize(fun){
+    let run_before = false;
+    let result = null;
+    function mfun(){
+        if (!run_before){
+            run_before = true;
+            result = fun();
+            return result;
         }
-        else {
-            return inner(stream_tail(s),idx1-1);
+        else{
+            return result;
         }
     }
-    return inner(s,idx);
+    return mfun;
 }
 
+
+// const onesB = pair(1, memoize(() => ms("B", onesB)));
 const a = pair(1, () => ms('A',a));
-
-display(string_ref(a,3));
-
-
-// basicaly
-
-
-
-
+stream_ref(a, 2);
 
 
 
