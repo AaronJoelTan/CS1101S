@@ -62,8 +62,8 @@
 
 
 // stream ref function
-function ms(m, s) { display(m);
-return s; }
+// function ms(m, s) { display(m);
+// return s; }
 
 // function stream_ref(s,idx){
 //     function inner(s,idx1){
@@ -93,30 +93,49 @@ But this would mean that the environment is sortof always constant
 
 */
 
-function memoize(fun){
-    let run_before = false;
-    let result = null;
-    function mfun(){
-        if (!run_before){
-            run_before = true;
-            result = fun();
-            return result;
-        }
-        else{
-            return result;
-        }
-    }
-    return mfun;
-}
+// function memoize(fun){
+//     let run_before = false;
+//     display(run_before);
+//     let result = null;
+//     function mfun(){
+//         if (!run_before){
+//             display('here123');
+//             run_before = true;
+//             result = fun();
+//             return result;
+//         }
+//         else{
+//             display('here');
+//             return result;
+//         }
+//     }
+//     return mfun;
+// }
 
 
 // const onesB = pair(1, memoize(() => ms("B", onesB)));
-const a = pair(1, () => ms('A',a));
-stream_ref(a, 2);
+// stream_ref(onesB, 2);
+// const a = pair(1, () => ms('A',a));
+// stream_ref(a, 2);
+
+
+// function m_integers_from(n) { 
+//     return pair(n,
+//             memoize(
+//                 () => ms("M: " + stringify(n),
+// m_integers_from(n + 1)))); 
+// }
+
+// const m_integers = m_integers_from(1);
+
+// // stream_ref(m_integers, 0);
+// stream_ref(m_integers, 5);
 
 
 
 
+const x = stream_map(display, enum_stream(0, 10)); stream_ref(x, 3);
+stream_ref(x, 5);
 
 
 
