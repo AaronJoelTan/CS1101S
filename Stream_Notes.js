@@ -82,6 +82,38 @@ const a = pair(1, () => ms('A',a));
 display(string_ref(a,3));
 
 
+// basicaly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
