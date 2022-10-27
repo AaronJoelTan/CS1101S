@@ -65,7 +65,7 @@ function scan_out_declarations(component) {
 function eval_block(component, env) {
     const body = block_body(component);
     const locals = scan_out_declarations(body);
-    const unassigneds = list_of_unassigned(locals);
+    const unassigneds = display_list(list_of_unassigned(locals));
     return evaluate(body, extend_environment(locals,
                                              unassigneds, 
                                              env));
@@ -103,7 +103,13 @@ function apply(fun, args) {
 // syntax functions
 //
 
+
+
+
 // literals
+
+
+
 
 function is_literal(component) {
     return is_tagged_list(component, "literal");
@@ -116,7 +122,13 @@ function is_tagged_list(component, the_tag) {
     return is_pair(component) && head(component) === the_tag;
 }
 
+
+
+
 // operator combinations
+
+
+
 
 function is_operator_combination(component) {	    
     return is_unary_operator_combination(component) ||
@@ -148,7 +160,13 @@ function operator_combination_to_application(component) {
                                    second_operand(component)));
 }
 
+
+
+
 // conditionals
+
+
+
 
 function is_conditional(component) {
     return is_tagged_list(component, "conditional_expression") ||
@@ -164,7 +182,13 @@ function conditional_alternative(component) {
    return list_ref(component, 3);
 }
 
+
+
+
 // sequences
+
+
+
 
 function is_sequence(stmt) {
    return is_tagged_list(stmt, "sequence");
@@ -185,13 +209,20 @@ function is_last_statement(stmts) {
    return is_null(tail(stmts));
 }
 
+
+
+
 // names
+
+
+
 
 function is_name(component) {
     return is_tagged_list(component, "name");
 }
 
 function symbol_of_name(component) {
+    // return the symbol
     return head(tail(component));
 }
 
@@ -199,7 +230,13 @@ function make_name(symbol) {
     return list("name", symbol);
 }
 
+
+
+
 // blocks
+
+
+
 
 function is_block(component) {
     return is_tagged_list(component, "block");
@@ -211,13 +248,21 @@ function make_block(statement) {
     return list("block", statement);
 }
 
+
+
+
 // declarations
+
+
+
 
 function is_declaration(component) {
     return is_tagged_list(component, "constant_declaration") ||
            is_tagged_list(component, "function_declaration");
 }
 function declaration_symbol(component) {
+    // basically you pass in the list('name',x);
+    // it will return the name, like const x, it will return x
     return symbol_of_name(head(tail(component)));
 }
 function declaration_value_expression(component) {
@@ -227,7 +272,13 @@ function make_constant_declaration(name, value_expression) {
     return list("constant_declaration", name, value_expression);
 }
 
+
+
+
 // application
+
+
+
 
 function is_application(component) {
    return is_tagged_list(component, "application");
@@ -244,7 +295,13 @@ function make_application(function_expression, argument_expressions) {
                 function_expression, argument_expressions);
 }
 
+
+
+
 // lambda expressions
+
+
+
 
 function is_lambda_expression(component) {
     return is_tagged_list(component, "lambda_expression");
@@ -260,7 +317,13 @@ function make_lambda_expression(parameters, body) {
     return list("lambda_expression", parameters, body);
 }
 
+
+
+
 // function declaration
+
+
+
 
 function is_function_declaration(component) {	    
     return is_tagged_list(component, "function_declaration");
@@ -294,7 +357,13 @@ function is_truthy(x) {
            : error(x, "boolean expected, received");
 }
 
+
+
+
 // environments
+
+
+
 
 function enclosing_environment(env) { return tail(env); }
 
@@ -358,7 +427,13 @@ function assign_symbol_value(symbol, val, env) {
     return env_loop(env);
 }
 
+
+
+
 // function objects
+
+
+
 
 function make_function(parameters, body, env) {
     return list("compound_function",
@@ -445,6 +520,10 @@ function setup_environment() {
 
 const the_global_environment = setup_environment();
 
+
+
+
+
 // 
 // running the evaluator
 // 
@@ -456,25 +535,28 @@ function parse_and_evaluate(program) {
 
 // testing
 
-parse_and_evaluate("1 + 2;");
+// parse_and_evaluate("1 + 2;");
 
-parse_and_evaluate("1; 2; 3;");
+// parse_and_evaluate("1; 2; 3;");
 
-parse_and_evaluate("true ? 2 : 3;");
+// parse_and_evaluate("true ? 2 : 3;");
 
-parse_and_evaluate("8 + 34; true ? 1 + 2 : 17;");
+// parse_and_evaluate("8 + 34; true ? 1 + 2 : 17;");
 
-parse_and_evaluate(`
-const y = 4; 
-{
-    const x = y + 7; 
-    x * 2;
-}
-    `);
+// parse_and_evaluate(`
+// const y = 4; 
+// {
+//     const x = y + 7; 
+//     x * 2;
+// }
+//     `);
+// parse_and_evaluate(`{ const x = 3 + 7; x * 2; }`);
+// display_list(make_block(parse(`{ const x = 3 + 7; x * 2; }`)));
+// parse_and_evaluate(`
+// function fact(n) {
+//     n === 1 ? 1 : n * fact(n - 1);
+// }
+// fact(4);
+// `);
 
-parse_and_evaluate(`
-function fact(n) {
-    n === 1 ? 1 : n * fact(n - 1);
-}
-fact(4);
-`);
+display_list(parse(`const x = y + 7;`));
